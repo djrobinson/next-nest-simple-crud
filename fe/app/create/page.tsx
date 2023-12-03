@@ -1,16 +1,17 @@
 "use client";
 
 import { useFormik } from "formik";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
+  const router = useRouter();
   const formik = useFormik({
     initialValues: {
       title: "",
       text: "",
     },
     onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
-      const result = await fetch(`http://127.0.01:3000/data`, {
+      await fetch(`http://127.0.01:3000/data`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -18,9 +19,8 @@ const Home = () => {
         body: JSON.stringify(values),
       });
 
-      const data = await result.json();
-
-      return data;
+      console.log("SAVED");
+      return router.push("/");
     },
   });
   return (
