@@ -3,6 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+interface INote {
+  _id: string;
+  title: string;
+  text: string;
+}
+
 const Home = () => {
   const revalidatedData = async () => {
     const result = await fetch(`http://127.0.01:3000/data`, {
@@ -21,7 +27,7 @@ const Home = () => {
     });
   };
 
-  const [state, setState] = useState<Response>([]);
+  const [state, setState] = useState<INote[]>([]);
   const [loadData, setLoadData] = useState(true);
   const [reload, setReload] = useState(false);
 
@@ -38,7 +44,7 @@ const Home = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="grid grid-cols-3 gap-8">
-        {state.map((item) => (
+        {state.map((item: INote) => (
           <div
             key={item._id}
             className="items-center justify-center p-4 border border-gray-300 rounded-xl bg-gradient-to-b from-zinc-200 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit"

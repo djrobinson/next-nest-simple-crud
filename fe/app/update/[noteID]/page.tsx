@@ -3,8 +3,9 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import React from "react";
+import NoteForm from "../../../components/NoteForm";
 
-const getNote = async (noteID) => {
+const getNote = async (noteID: string) => {
   const result = await fetch(`http://127.0.01:3000/data/${noteID}`, {
     method: "GET",
   });
@@ -12,7 +13,13 @@ const getNote = async (noteID) => {
   return data;
 };
 
-const Update = ({ params: { noteID } }) => {
+interface IUpdateProps {
+  params: {
+    noteID: string;
+  };
+}
+
+const Update = ({ params: { noteID } }: IUpdateProps) => {
   const router = useRouter();
 
   const formik = useFormik({
@@ -53,50 +60,15 @@ const Update = ({ params: { noteID } }) => {
               <h2 className="font-sans font-bold text-3xl text-white-800 text-center">
                 Update a Note
               </h2>
-            </div>
-            <div className="col-span-12">
-              <label
-                htmlFor="title"
-                className="block text-sm font-medium leading-6 text-white-900"
-              >
-                Title
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ing-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    name="title"
-                    id="title"
-                    onChange={formik.handleChange}
-                    value={formik.values.title}
-                    autoComplete="title"
-                    className="block flex-1 border-0 py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="Title..."
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="col-span-12">
-              <label
-                htmlFor="text"
-                className="block text-sm font-medium leading-6 text-white-900"
-              >
-                Note Text
-              </label>
-              <div className="mt-2">
-                <textarea
-                  id="text"
-                  name="text"
-                  rows={8}
-                  onChange={formik.handleChange}
-                  value={formik.values.text}
-                  className="block p-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                ></textarea>
-              </div>
+              <NoteForm
+                title={formik.values.title}
+                text={formik.values.text}
+                handleChange={formik.handleChange}
+              />
             </div>
           </div>
         </div>
+
         <div className="pt-2 flex justify-center">
           <button className="align-center w-full bg-teal-500 hover:bg-teal-700 text-white py-2 px-4 rounded-full">
             Update
