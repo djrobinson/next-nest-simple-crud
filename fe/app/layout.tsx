@@ -18,19 +18,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <header className="bg-white">
+        <header className="bg-gray-900">
           <nav
             className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
             aria-label="Global"
           >
             <Link className="flex lg:flex-1" href="/">
-              <h2 className="text-black font-bold">Notes</h2>
+              <h2 className="text-gray-100 text-3xl font-bold">Notes</h2>
             </Link>
 
             <div className="lg:flex lg:flex-1 lg:justify-end">
               <Link
                 href="/create"
-                className="text-sm font-semibold leading-6 text-gray-900"
+                className="text-sm font-semibold leading-6 text-gray-100"
               >
                 Create Note <span aria-hidden="true">&rarr;</span>
               </Link>
